@@ -1,5 +1,7 @@
 package ru.casein.model
 
+import com.fasterxml.jackson.annotation.JsonManagedReference
+
 import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -10,10 +12,11 @@ import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.JoinTable
 import javax.persistence.ManyToMany
+import javax.persistence.ManyToOne
 import java.time.LocalDateTime
 
-@Entity
-class User {
+@Entity(name = 'profile')
+class Profile {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,6 +34,14 @@ class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    Set<Role> roles = new HashSet<>();
+    Set<ProfileRole> roles = new HashSet<>()
+
+    @ManyToOne
+    @JsonManagedReference
+    @JoinColumn(name="department_id", nullable=false)
+    Department department
+
+    String phoneNumber
+
     
 }
