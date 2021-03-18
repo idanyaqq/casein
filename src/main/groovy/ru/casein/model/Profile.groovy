@@ -1,5 +1,6 @@
 package ru.casein.model
 
+import com.fasterxml.jackson.annotation.JsonBackReference
 import com.fasterxml.jackson.annotation.JsonManagedReference
 
 import javax.persistence.CascadeType
@@ -37,7 +38,7 @@ class Profile {
     Set<ProfileRole> roles = new HashSet<>()
 
     @ManyToOne
-    @JsonManagedReference
+    @JsonBackReference
     @JoinColumn(name="department_id", nullable=false)
     Department department
 
